@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Weixin;
-
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -12,7 +14,7 @@ class WeixinController extends Controller
     }
     public function accessToken()
     {
-        //Cache::pull('access');exit;
+       // Cache::pull('access');exit;
         $access = Cache('access');
         if (empty($access)) {
             $appid = "wxe750a38a8fe84b93";
