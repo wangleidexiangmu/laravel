@@ -1,20 +1,109 @@
 <?php
 
 namespace App\Http\Controllers\Weixin;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use GuzzleHttp\Client;
+use   Illuminate\Support\Facades\Redis;
 use Illuminate\Http\Request;
+use  App\model\weixin\weixin;
+use  App\model\weixin\txt;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Cache;
+use GuzzleHttp\Client;
 class WeixinController extends Controller
 {
     public function valid(){
         echo $_GET['echostr'];
     }
-    public function accessToken()
+
+    public function wxEvent()
     {
-       // Cache::pull('access');exit;
+        //接收微信服务器推送
+        $content = file_get_contents("php://input");
+        $time = date('Y-m-d H:i:s');
+        $str = $time . $content . "\n";
+        file_put_contents("logs/wx_event.log",$str,FILE_APPEND);
+        // var_dump($content);exit;
+        $data = simplexml_load_string($content);
+        //$data = (array)simplexml_load_string($content, 'SimpleXMLElement', LIBXML_NOCDATA);
+        // var_dump($data);exit;
+        $type=$data->MsgType;
+        //var_dump($type);exit;
+
+
+
+        $wx_id = $data->ToUserName;// 公众号ID
+        $openid = $data->FromUserName;//用户OpenID
+        $event = $data->Event;//事件类型
+        if($event=='subscribe'){        //扫码关注事件
+            //根据openid判断用户是否已存在
+            $local_user = weixin::where(['openid'=>$openid])->first();
+            if($local_user){
+                //用户之前关注过
+                echo '
+                    <xml>
+                    <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                    <CreateTime>'.time().'</CreateTime>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <Content><![CDATA['. '欢迎回来 '. $local_user['nickname'] .']]></Content>
+                    </xml>';
+            }else{          //用户首次关注
+                //获取用户信息
+                $u = $this->getUserInfo($openid);
+                //用户信息入库
+                $u_info = [
+                    'openid'    => $u['openid'],
+                    'nickname'  => $u['nickname'],
+                    'sex'  => $u['sex'],
+                    'headimgurl'  => $u['headimgurl'],
+                ];
+                $id = weixin::insertGetId($u_info);
+                echo '
+                    <xml>
+                    <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                    <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                    <CreateTime>'.time().'</CreateTime>
+                    <MsgType><![CDATA[text]]></MsgType>
+                    <Content><![CDATA['. '欢迎关注 '. $u['nickname'] .']]></Content>
+                    </xml>';
+            }
+        }
+
+
+        if($type=='text'){
+            $txt=$data->Content;//文本信息
+            // var_dump($txt);exit;
+            $addtime=$data->CreateTime;//时间
+            file_put_contents("logs/txt.log", $str, FILE_APPEND);
+            $openid = $data->FromUserName;
+            //$u=$this->getUserInfo($openid);
+            $info=[
+                'openid'=>$openid,
+                'text'=>$txt,
+                'createtime'=>$addtime,
+            ];
+            $txtinfo=txt::insert($info);
+            //  var_dump($txtinfo);exit;
+
+        }else if($type=='image'){
+            $MediaId=$data->MediaId;//
+            $access = $this->getAccessToken();
+            $url = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
+            $time = time();
+            $res_str = file_get_contents($url);
+            file_put_contents("/tmp/image/$time.jpg", $res_str, FILE_APPEND);
+        }else if($type=='voice'){
+            $MediaId=$data['MsgId'];//
+            $access =  $this->getAccessToken();
+            $vourl = "https://api.weixin.qq.com/cgi-bin/media/get?access_token=$access&media_id=$MediaId";
+            $votime = time();
+            $res_str = file_get_contents($vourl);
+            file_put_contents("/tmp/voice/$votime.mp3", $res_str, FILE_APPEND);
+        }
+
+    }
+    public function getAccessToken()
+    {
+        //Cache::pull('access');exit;
         $access = Cache('access');
         if (empty($access)) {
             $appid = "wxe750a38a8fe84b93";
@@ -29,114 +118,59 @@ class WeixinController extends Controller
         }
         return $access;
     }
-    public function xmladd(Request $request)
+    //测试
+    public function test()
     {
-        //echo $request->input('echostr');
-        $str = file_get_contents("php://input");
-        $objxml = simplexml_load_string($str);
-        //var_dump($objxml);
-        file_put_contents("/tmp/1809_weixin.log", $str, FILE_APPEND);
-        $Event = $objxml->Event;
-        $FromUserName = $objxml->FromUserName;
-        $ToUserName = $objxml->ToUserName;
-        $MsgType = $objxml->MsgType;
-        $MediaId = $objxml->MediaId;
-        $access = $this->accessToken();
-        $userUrl = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=$access&openid=$FromUserName&lang=zh_CN";
-        $userAccessInfo = file_get_contents($userUrl);
-        $userInfo = json_decode($userAccessInfo, true);
-        //var_dump($userInfo);exit;
-        $name = $userInfo['nickname'];
-        $sex = $userInfo['sex'];
-        $headimgurl = $userInfo['headimgurl'];
-        $openid1 = $userInfo['openid'];
-        if ($Event == 'subscribe') {
-            $data = DB::table('wx')->where('openid', $FromUserName)->count();
-            //print_r($data);die;
-            if ($data == '0') {
-                $weiInfo = [
-                    'name' => $name,
-                    'sex' => $sex,
-                    'img' => $headimgurl,
-                    'openid' => $openid1,
-                    'time' => time()
-                ];
-                DB::table('wx')->insert($weiInfo);
-                //回复消息
-                $time = time();
-                $content = "关注本公众号成功";
-                $xmlStr = "
-                   <xml>
-                        <ToUserName><![CDATA[$FromUserName]]></ToUserName>
-                        <FromUserName><![CDATA[$ToUserName]]></FromUserName>
-                        <CreateTime>$time</CreateTime>
-                        <MsgType><![CDATA[text]]></MsgType>
-                        <Content><![CDATA[$content]]></Content>
-                   </xml>";
-                echo $xmlStr;
-            }else{
-                $time = time();
-                $content = "欢迎" . $name . "回来";
-                $xmlStr = "
-                   <xml>
-                        <ToUserName><![CDATA[$FromUserName]]></ToUserName>
-                        <FromUserName><![CDATA[$ToUserName]]></FromUserName>
-                        <CreateTime>$time</CreateTime>
-                        <MsgType><![CDATA[text]]></MsgType>
-                        <Content><![CDATA[$content]]></Content>
-                   </xml>";
-                echo $xmlStr;
-            }
-        }
-
+        $access_token = $this->getAccessToken();
+        echo 'token : '. $access_token;echo '</br>';
     }
-    /**自定义菜单添加*/
-    public function createadd(Request $request){
-        $access = $this->accessToken();
-        $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$access";
-        $arr =[
+    //获取微信用户信息
+    public function getUserInfo($openid)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->getAccessToken().'&openid='.$openid.'&lang=zh_CN';
+        $data = file_get_contents($url);
+        $u = json_decode($data,true);
+        return $u;
+    }
+    //微信菜单
+    public function card(){
+        $res='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getAccessToken().'';
+        $arrInfo =[
             "button"=>[
                 [
                     "type"=>"click",
                     "name"=>"客服",
                     "key"=>"V1001_TODAY_MUSIC01"
                 ],
-               "button"=>[
-                   [
-
-                       "name"=>"菜单",
-                      "button"=>[
-                         [
-                             "type"=>"view",
-                               "name"=>"搜索",
-                               "url"=>"http://www.soso.com/"
-                         ]
-                      ],
-                       "button"=>[
-                           [
-                               "type"=>"location",
-                               "name"=>"跳转",
-                               "url"=>"http://www.baidu.com/"
-                           ]
-                       ],
-                       "button"=>[
-                           [
-                               "type"=>"select",
-                               "name"=>"查询",
-                               "url"=>"http://www.baidu.com/"
-                           ]
-                       ],
-                   ],
-               ],
+                [
+                    "type"=>"click",
+                    "name"=>"其他",
+                    "key"=>"V1001_TODAY_MUSIC02"
+                ],
             ] ,
         ];
-        $strJson = json_encode($arr,JSON_UNESCAPED_UNICODE);
-        $objurl = new Client();
-        $response = $objurl->request('POST',$url,[
-            'body' => $strJson
+
+
+        $data=json_encode($arrInfo,JSON_UNESCAPED_UNICODE);//处理中文编码
+        //发送请求
+        $clinet= new Client();
+        //发送json字符串
+        $response=$clinet->request('POST',$res,[
+            'body'=>$data
         ]);
-        $res_str = $response->getBody();
-        //var_dump($res_str);
-        return $res_str;
+        //处理相应
+        $reslut=$response->getBody();
+        //转数组
+        $arr = json_decode($reslut,true);
+        //判断错误信息
+        if($arr['errcode']>0){
+
+            echo "创建菜单失败";
+        }else{
+            echo "创建菜单成功";
+        }
+
     }
+
+
 }
