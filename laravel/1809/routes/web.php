@@ -14,7 +14,8 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::any('xmladd','Weixin\WeixinController@xmladd');
+Route::get('weixin/vaild1','Weixin\WeixinController@valid');
+Route::any('weixin/vaild1','Weixin\WeixinController@xmladd');
 Route::any('accessToken','Weixin\WeixinController@accessToken');
 Route::any('userInfo','Weixin\WeixinController@userInfo');
 Route::any('createadd','Weixin\WeixinController@createadd');
