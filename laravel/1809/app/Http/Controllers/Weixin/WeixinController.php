@@ -83,7 +83,47 @@ class WeixinController extends Controller
             ];
             $txtinfo=txt::insert($info);
             //  var_dump($txtinfo);exit;
+            if(strpos($txt,'天气')){
+               // $res=json_encode($txt);
+             // echo $res;
+                $city=explode('天',$txt)[0];
+                //echo $city;
+                $url='https://free-api.heweather.net/s6/weather/now?key=HE1904161219291607&location='.$city.'';
+               // echo $url;exit;
+                $arr=file_get_contents($url);
+               //var_dump($arr) ;exit;
+                $res=json_decode($arr,true);
+               // echo print_r($res);exit;
+                $results=$res['HeWeather6']['0']['status'];
+                if($results=='ok'){
+                    $sun=$res['HeWeather6']['0']['now']['cond_txt'];
+                    $tmp=$res['HeWeather6']['0']['now']['tmp'];
+                    $wind_dir=$res['HeWeather6']['0']['now']['wind_dir'];
+                    $wind_sc=$res['HeWeather6']['0']['now']['wind_sc'];
+                    $str="温度：".$tmp."\n"."天气：".$sun."\n"."风向：".$wind_dir."\n"."风力".$wind_sc."\n";
+                    $today="
+                    <xml>
+                      <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                      <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                      <CreateTime>'.time().'</CreateTime>
+                      <MsgType><![CDATA[text]]></MsgType>
+                      <Content><![CDATA['.$str.']]></Content>
+                    </xml>";
+                    echo $today;
+                }else{
+                    echo "
+                         <xml>
+                      <ToUserName><![CDATA['.$openid.']]></ToUserName>
+                      <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+                      <CreateTime>'.time().'</CreateTime>
+                      <MsgType><![CDATA[text]]></MsgType>
+                      <Content><![CDATA['.输入城市错误.']]></Content>
+                    </xml>";
+                }
 
+
+
+            }
         }else if($type=='image'){
             $MediaId=$data->MediaId;//
             $access = $this->getAccessToken();
