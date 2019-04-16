@@ -17,26 +17,8 @@
       <file leaf-file-name="WeixinController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin/WeixinController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="120" column="27" selection-start-line="120" selection-start-column="27" selection-end-line="120" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name=".env" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.env">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/web.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="20" column="25" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="25" />
+            <state relative-caret-position="-1670">
+              <caret line="108" column="2" selection-start-line="108" selection-start-column="2" selection-end-line="108" selection-end-column="2" />
             </state>
           </provider>
         </entry>
@@ -284,12 +266,12 @@
       <option name="presentableId" value="Default" />
       <updated>1555323318346</updated>
       <workItem from="1555323320968" duration="16256000" />
-      <workItem from="1555398082544" duration="702000" />
+      <workItem from="1555398082544" duration="1444000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16958000" />
+    <option name="totallyTimeSpent" value="17700000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="22" width="1378" height="728" extended-state="0" />
@@ -301,7 +283,8 @@
       <window_info anchor="bottom" id="Version Control" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="7" />
       <window_info anchor="bottom" id="Terminal" order="3" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.2503671" />
+      <window_info anchor="right" id="Remote Host" order="0" visible="true" weight="0.22760646" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17400882" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="2" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
@@ -309,7 +292,6 @@
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info anchor="right" id="Remote Host" order="0" weight="0.32966226" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="5" />
@@ -383,8 +365,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Weixin/WeixinController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="120" column="27" selection-start-line="120" selection-start-column="27" selection-end-line="120" selection-end-column="27" />
+        <state relative-caret-position="-1670">
+          <caret line="108" column="2" selection-start-line="108" selection-start-column="2" selection-end-line="108" selection-end-column="2" />
         </state>
       </provider>
     </entry>
