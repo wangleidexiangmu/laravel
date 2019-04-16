@@ -26,3 +26,7 @@ Route::any('weixin/test','Weixin\WeixinController@test');
 Route::any('weixin/info','Weixin\WeixinController@getUserInfo');
 //微信菜单
 Route::any('weixin/card','Weixin\WeixinController@card');
+//群发
+Route::get('weixin/allsend','Weixin\WeixinController@allsend');
+//群发文本消息
+Route::get('weixin/send','Weixin\WeixinController@send');

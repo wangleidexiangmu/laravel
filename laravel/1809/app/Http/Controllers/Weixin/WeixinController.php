@@ -214,6 +214,32 @@ class WeixinController extends Controller
         }
 
     }
+    public function allsend($openid_arr,$content){
+            $msg=[
+                "touser"=>$openid_arr,
+                "msgtype"=>"text",
+                "text"=>[
+                    "content"=>$content
+                ]
+            ];
+            $data=json_encode($msg,JSON_UNESCAPED_UNICODE);
+           // echo $data;
+        $url='https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token='.$this->getAccessToken().'';
+        $clinet= new Client();
+        //发送json字符串
+       $response= $clinet->request('POST',$url,[
+            'body'=>$data
+        ]);
+       return $response->getBody();
 
+    }
+        public function send(){
+                $userlist=weixin::where(['sub_status'=>1])->get()->toarray();
+                //var_dump($userlist);
+            $openid_arr=array_column($userlist,'openid');
+            $msg="彩蛋来了";
+            $result=$this->allsend($openid_arr,$msg);
+            echo $result;
+        }
 
 }
