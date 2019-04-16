@@ -101,24 +101,24 @@ class WeixinController extends Controller
                     $wind_dir=$res['HeWeather6']['0']['now']['wind_dir'];
                     $wind_sc=$res['HeWeather6']['0']['now']['wind_sc'];
                     $str="温度：".$tmp."\n"."天气：".$sun."\n"."风向：".$wind_dir."\n"."风力".$wind_sc."\n";
-                    $today="
+                    $today='
                     <xml>
-                      <ToUserName><![CDATA['.$openid.']]></ToUserName>
-                      <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
-                      <CreateTime>'.time().'</CreateTime>
-                      <MsgType><![CDATA[text]]></MsgType>
-                      <Content><![CDATA['.$str.']]></Content>
-                    </xml>";
+<ToUserName><![CDATA['.$openid.']]></ToUserName>
+<FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+<CreateTime>'.time().'</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA['.$str.']]></Content>
+                    </xml>';
                     echo $today;
                 }else{
-                    echo "
+                    echo '
                          <xml>
-                      <ToUserName><![CDATA['.$openid.']]></ToUserName>
-                      <FromUserName><![CDATA['.$wx_id.']]></FromUserName>
-                      <CreateTime>'.time().'</CreateTime>
-                      <MsgType><![CDATA[text]]></MsgType>
-                      <Content><![CDATA['.输入城市错误.']]></Content>
-                    </xml>";
+<ToUserName><![CDATA['.$openid.']]></ToUserName>
+<FromUserName><![CDATA['.$wx_id.']]></FromUserName>
+<CreateTime>'.time().'</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA['.输入城市错误.']]></Content>
+                    </xml>';
                 }
 
 
