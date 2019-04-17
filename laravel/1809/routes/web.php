@@ -30,3 +30,6 @@ Route::any('weixin/card','Weixin\WeixinController@card');
 Route::get('weixin/allsend','Weixin\WeixinController@allsend');
 //群发文本消息
 Route::get('weixin/send','Weixin\WeixinController@send');
+//微信支付
+Route::get('/weixin/pay/test','Weixin\WxPayController@test');           //微信支付测试
+Route::post('/weixin/pay/notify','Weixin\WxPayController@notify');       //微信支付回调地址
