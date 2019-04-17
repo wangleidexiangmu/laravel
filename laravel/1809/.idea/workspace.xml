@@ -216,9 +216,9 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/event-manager" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="93" />
-    <option name="y" value="-19" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="202" />
+    <option name="y" value="17" />
     <option name="width" value="1157" />
     <option name="height" value="728" />
   </component>
@@ -335,18 +335,17 @@
       <workItem from="1555323320968" duration="16256000" />
       <workItem from="1555398082544" duration="11999000" />
       <workItem from="1555472585523" duration="96000" />
-      <workItem from="1555472730257" duration="8861000" />
+      <workItem from="1555472730257" duration="9198000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37212000" />
+    <option name="totallyTimeSpent" value="37549000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
-    <editor active="true" />
+    <frame x="202" y="17" width="1157" height="728" extended-state="0" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17642753" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.21121822" />
       <window_info anchor="bottom" id="TODO" order="11" />
       <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
