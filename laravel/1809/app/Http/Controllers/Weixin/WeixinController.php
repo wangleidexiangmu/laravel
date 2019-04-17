@@ -146,7 +146,7 @@ class WeixinController extends Controller
     }
     public function getAccessToken()
     {
-        //Cache::pull('access');exit;
+        Cache::pull('access');exit;
         $access = Cache('access');
         if (empty($access)) {
             $appid = "wxe750a38a8fe84b93";
