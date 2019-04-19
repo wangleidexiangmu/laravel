@@ -456,3 +456,38 @@
 <Content><![CDATA[上海天气]]></Content>
 <MsgId>22267961266606342</MsgId>
 </xml>
+2019-04-16 07:43:01<xml><ToUserName><![CDATA[gh_20c55a8ab149]]></ToUserName>
+<FromUserName><![CDATA[oYL3b5krtrmqxlwXs0A_7cv4vaJg]]></FromUserName>
+<CreateTime>1555400580</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[广州天气]]></Content>
+<MsgId>22267980892489418</MsgId>
+</xml>
+2019-04-16 10:50:15<xml><ToUserName><![CDATA[gh_20c55a8ab149]]></ToUserName>
+<FromUserName><![CDATA[oYL3b5jVS8f3gyCEbYUMylek46J4]]></FromUserName>
+<CreateTime>1555411815</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[看看]]></Content>
+<MsgId>22268146570179097</MsgId>
+</xml>
+2019-04-17 08:44:53<xml><ToUserName><![CDATA[gh_20c55a8ab149]]></ToUserName>
+<FromUserName><![CDATA[oYL3b5krtrmqxlwXs0A_7cv4vaJg]]></FromUserName>
+<CreateTime>1555461893</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[上海天气]]></Content>
+<MsgId>22268855803232819</MsgId>
+</xml>
+2019-04-17 08:49:12<xml><ToUserName><![CDATA[gh_20c55a8ab149]]></ToUserName>
+<FromUserName><![CDATA[oYL3b5tinPY2A-sYbBoynMy9PlEE]]></FromUserName>
+<CreateTime>1555462152</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[北京+天气]]></Content>
+<MsgId>22268863143743484</MsgId>
+</xml>
+2019-04-17 08:53:17<xml><ToUserName><![CDATA[gh_20c55a8ab149]]></ToUserName>
+<FromUserName><![CDATA[oYL3b5krtrmqxlwXs0A_7cv4vaJg]]></FromUserName>
+<CreateTime>1555462397</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[广州+天气]]></Content>
+<MsgId>22268864492755920</MsgId>
+</xml>
