@@ -148,12 +148,8 @@ class WxPayController extends Controller
             }
         }
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
-<<<<<<< HEAD
-       return $response;
-=======
        echo  $response;
-      //  return view('weixin.paysecc');
->>>>>>> c9a30ba97ac460cf6a9ae676140c8ac942c5950b
+
     }
 
 }
