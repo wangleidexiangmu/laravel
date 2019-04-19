@@ -135,8 +135,6 @@ class WxPayController extends Controller
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_pay_notice.log',$log_str,FILE_APPEND);
         $xml = simplexml_load_string($data);
-        //var_dump($xml);exit;
-        //echo $xml;exit;
         if($xml->result_code=='SUCCESS' && $xml->return_code=='SUCCESS'){      //微信支付成功回调
             //验证签名
             $sign = true;
@@ -150,7 +148,8 @@ class WxPayController extends Controller
             }
         }
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
-        return view('weixin.paysecc');
+       echo  $response;
+      //  return view('weixin.paysecc');
     }
 
 }
