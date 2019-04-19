@@ -128,7 +128,7 @@ class WxPayController extends Controller
         /**
          * 微信支付回调
          */
-        public function notify()
+  public function notify()
     {
         $data = file_get_contents("php://input");
         //记录日志
@@ -150,7 +150,7 @@ class WxPayController extends Controller
             }
         }
         $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
-        return view('weixin.paysecc');
+       return $response;
     }
 
 }
