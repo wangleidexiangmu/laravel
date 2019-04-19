@@ -12,6 +12,7 @@
 
 <<<<<<<2019-04-17 16:40:24
 
+<<<<<<< HEAD
 <<<<<<<2019-04-17 18:15:53
 <xml><appid><![CDATA[wxd5af665b240b75d4]]></appid>
 <bank_type><![CDATA[CFT]]></bank_type>
@@ -102,4 +103,15 @@
 <trade_type><![CDATA[NATIVE]]></trade_type>
 <transaction_id><![CDATA[4200000303201904198373655655]]></transaction_id>
 </xml>
+=======
+<<<<<<<2019-04-17 20:15:54
+<xml><ToUserName><![CDATA[gh_20c55a8ab149]]></ToUserName>
+<FromUserName><![CDATA[oYL3b5krtrmqxlwXs0A_7cv4vaJg]]></FromUserName>
+<CreateTime>1555383045</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[北京天气]]></Content>
+<MsgId>22267731494661052</MsgId>
+</xml>
+
+>>>>>>> d0a8be106e631ac845eebf5411996438d468c422
 <<<<<<<
