@@ -73,3 +73,4 @@ Route::get('weixin/send','Weixin\WeixinController@send');
 //微信支付
 Route::get('/weixin/pay/test','Weixin\WxPayController@test');           //微信支付测试
 Route::post('/weixin/pay/notify','Weixin\WxPayController@notify');       //微信支付回调地址
+Route::get('/weixin/pay/secc','Weixin\WxPayController@secc');
